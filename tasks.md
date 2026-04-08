@@ -13,10 +13,10 @@
 
 ## Meta 1 — Prototipo de Física y Proyecto Base
 
-> **Meta:** Repo configurado, proyecto Unity andando, un colectivo que se mueve con física real.
+> **Meta:** Repo configurado, proyecto Unity andando, un colectivo que se mueveeeee.
 
-### Mono A — Proyecto y repositorio
-- [ ] Definir estructura de carpetas en `Assets/_Project/`
+### Santy — Proyecto y repositorio
+- [x] Definir estructura de carpetas en `Assets/_Project/`
 - [ ] Configurar Input System (aceleración, freno, freno de mano, dirección, bocina, luces)
 - [ ] Crear `InputActions.inputactions` con todos los bindings de PC
 - [ ] Documentar en el README cómo clonar y abrir el proyecto
