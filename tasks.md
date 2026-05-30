@@ -16,15 +16,14 @@ Objetivo: ordenar el proyecto Unity y dejar una base consistente para construir 
 ### Estructura y configuracion
 
 - [x] Crear estructura base bajo `Assets/_Project/`.
-- [ ] Mover/crear escenas propias dentro de `Assets/_Project/Scenes/`.
-- [ ] Mantener `Assets/Scenes/SampleScene.unity` solo como escena temporal o eliminarla cuando haya escenas reales.
-- [ ] Crear `MainMenu.unity`.
-- [ ] Crear `Route_620_SanJusto_CarlosCasares.unity`.
-- [ ] Crear `PhysicsTest.unity` para pruebas aisladas del colectivo.
-- [~] Completar `Assets/_Project/Settings/InputActions.inputactions`.
-- [ ] Corregir conflicto de input: `Handbrake` y `Horn` no pueden compartir `H`.
-- [ ] Agregar input `AirHorn`.
-- [ ] Definir bindings PC finales: A/D, W, S, Space, H, J, L, V, Escape.
+- [x] Mover/crear escenas propias dentro de `Assets/_Project/Scenes/`.
+- [x] Mantener `Assets/Scenes/SampleScene.unity` solo como escena temporal o eliminarla cuando haya escenas reales.
+- [x] Crear `MainMenu.unity`.
+- [x] Crear `Route_620_SanJusto_CarlosCasares.unity`.
+- [x] Crear `PhysicsTest.unity` para pruebas aisladas del colectivo.
+- [x] Completar `Assets/_Project/Settings/InputActions.inputactions`.
+- [x] Agregar input `AirHorn`.
+- [x] Definir bindings PC finales: A/D, W, S, Space, H, J, L, V, Escape.
 
 ### Arquitectura minima
 

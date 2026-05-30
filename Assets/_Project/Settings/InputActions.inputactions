@@ -37,7 +37,7 @@
                     "name": "Handbrake",
                     "type": "Button",
                     "id": "c3115864-5deb-4482-b88c-e11e20b33a76",
-                    "expectedControlType": "",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -46,7 +46,16 @@
                     "name": "Horn",
                     "type": "Button",
                     "id": "29a103ce-74c1-4e31-b95a-134ff7b4764f",
-                    "expectedControlType": "",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "AirHorn",
+                    "type": "Button",
+                    "id": "bd1f053e-d1d8-48a4-a5af-a81e394f14db",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -64,7 +73,7 @@
                     "name": "ChangeCamera",
                     "type": "Button",
                     "id": "86a5ab2f-5eb8-4b68-a02e-72e52e587cee",
-                    "expectedControlType": "",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -73,7 +82,7 @@
                     "name": "Pause",
                     "type": "Button",
                     "id": "8586dafc-3d3c-44b2-b507-d29111fb5418",
-                    "expectedControlType": "",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -81,26 +90,37 @@
             ],
             "bindings": [
                 {
-                    "name": "",
-                    "id": "f7e418e0-3791-4220-a5bf-5562090aab6e",
-                    "path": "<Keyboard>/d",
+                    "name": "Keyboard A/D",
+                    "id": "2bbff197-017e-44cc-9d9f-c8b6281b3dc0",
+                    "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Steering",
-                    "isComposite": false,
+                    "isComposite": true,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
+                    "name": "negative",
                     "id": "8052729b-5ff5-46ec-9224-f97a1d086497",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "Steering",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "f7e418e0-3791-4220-a5bf-5562090aab6e",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Steering",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 },
                 {
                     "name": "",
@@ -108,7 +128,7 @@
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "Acceleration",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -119,7 +139,7 @@
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "Brake",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -127,10 +147,10 @@
                 {
                     "name": "",
                     "id": "a8ffc1be-1f47-44a6-b280-9d6a6be3e809",
-                    "path": "<Keyboard>/h",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "Handbrake",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -141,8 +161,19 @@
                     "path": "<Keyboard>/h",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "Horn",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4dbf82dd-b51d-48a4-b2cc-27a590c8c351",
+                    "path": "<Keyboard>/j",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "AirHorn",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -152,7 +183,7 @@
                     "path": "<Keyboard>/l",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "Lights",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -163,7 +194,7 @@
                     "path": "<Keyboard>/v",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "ChangeCamera",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -174,7 +205,7 @@
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -182,5 +213,22 @@
             ]
         }
     ],
-    "controlSchemes": []
+    "controlSchemes": [
+        {
+            "name": "Keyboard&Mouse",
+            "bindingGroup": "Keyboard&Mouse",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Mouse>",
+                    "isOptional": true,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
 }
