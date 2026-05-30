@@ -1,206 +1,269 @@
-# Bondi Simulator 2025 — Task Board
-
-> Organización por módulos temáticos. Cada mono se hace cargo de un módulo completo, al completar una tarea, primero hacer PR a dev, no se trabaja sobre main.
-
-> Si estas laburando en algo, reemplazar MONO con tu nombre para hacerselo a saber a los demás.
-
----
+# Bondi Simulator 2025 - de rutaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
 ## Convenciones
 
-- **[ ]** tarea pendiente · **[x]** completada · **[~]** en progreso
----
+- `[ ]` pendiente
+- `[~]` en progreso
+- `[x]` terminado
+- Cada tarea debe terminar en una escena o flujo verificable dentro de Unity.
+- No se trabaja sobre `main`; los cambios van por rama y PR hacia `dev`.
+- Una fase no se considera cerrada si el juego entra en Play Mode con errores criticos de consola.
 
-## Meta 1 — Prototipo de Física y Proyecto Base
+## Fase 0 - Base Del Proyecto
 
-> **Meta:** Repo configurado, proyecto Unity andando, un colectivo que se mueveeeee.
+Objetivo: ordenar el proyecto Unity y dejar una base consistente para construir gameplay.
 
-### Santy — Proyecto y repositorio
-- [x] Definir estructura de carpetas en `Assets/_Project/`
-- [ ] Configurar Input System (aceleración, freno, freno de mano, dirección, bocina, luces)
-- [ ] Crear `InputActions.inputactions` con todos los bindings de PC
-- [ ] Documentar en el README cómo clonar y abrir el proyecto
+### Estructura y configuracion
 
-### Mono B — VehicleController
-- [ ] Crear prefab base de colectivo con Rigidbody + WheelColliders (4 ruedas)
-- [ ] Ajustar masa (~14,000 kg) y centro de masa bajo para anti-rollover
-- [ ] Implementar `VehicleController.cs`: aceleración, dirección, freno, freno de mano
-- [ ] Crear `VehicleData` ScriptableObject con campos: `maxMotorTorque`, `maxSteeringAngle`, `brakeTorque`, `topSpeedKmh`, `mass`, `centerOfMass`
-- [ ] Completar SO con stats para el modelo OH 1618 Ugarte (modelo base)
-- [ ] Escena de prueba de física: plano plano, rampas, giro 90°
+- [x] Crear estructura base bajo `Assets/_Project/`.
+- [x] Mover/crear escenas propias dentro de `Assets/_Project/Scenes/`.
+- [x] Mantener `Assets/Scenes/SampleScene.unity` solo como escena temporal o eliminarla cuando haya escenas reales.
+- [x] Crear `MainMenu.unity`.
+- [x] Crear `Route_620_SanJusto_CarlosCasares.unity`.
+- [x] Crear `PhysicsTest.unity` para pruebas aisladas del colectivo.
+- [x] Completar `Assets/_Project/Settings/InputActions.inputactions`.
+- [x] Agregar input `AirHorn`.
+- [x] Definir bindings PC finales: A/D, W, S, Space, H, J, L, V, Escape.
 
-### Mono C — GameManager y arquitectura de estados
-- [ ] Implementar `GameManager.cs` como Singleton con FSM: `MainMenu → CountdownState → Racing → Results`
-- [ ] Crear `GameEvents.cs` con los eventos globales del sistema
-- [ ] Implementar `ServiceLocator.cs` básico
-- [ ] Crear escena `MainMenu.unity` placeholder (solo un botón "Jugar")
-- [ ] Crear escena `Route_620_SanJusto_CarlosCasares.unity` vacía con el colectivo cargado
-- [ ] Conectar transición de escenas al FSM
+### Arquitectura minima
 
----
+- [ ] Crear `GameManager.cs` con estados `MainMenu`, `Countdown`, `Racing`, `Results`.
+- [ ] Crear `GameEvents.cs` para eventos globales de gameplay.
+- [ ] Crear `PlayerInputReader.cs` como capa de lectura del Input System.
+- [ ] Crear `ServiceLocator.cs` solo para servicios globales inevitables.
+- [ ] Documentar en comentarios XML las clases publicas principales.
 
-## Meta 2 — Recorrido 620 Jugable (sin tráfico)
+### Criterio de aceptacion
 
-> **Meta:** El recorrido 620 es completable de punta a punta con cronómetro y minimapa.
+- [ ] El proyecto abre en Unity sin errores criticos.
+- [ ] Las escenas base existen y cargan.
+- [ ] Los inputs PC minimos estan definidos sin conflictos.
+- [ ] `GameManager` puede cambiar de `MainMenu` a `Countdown`, `Racing` y `Results`.
 
-### Mono A — RouteSystem y Waypoints
-- [ ] Implementar `RouteSystem.cs`: secuencia de waypoints, detección de progreso del jugador
-- [ ] Crear `RouteData` ScriptableObject con todos sus campos
-- [ ] Completar SO del recorrido 620 (waypoints, paradas, tiempos medalla)
-- [ ] Implementar límites de recorrido: zona de reposicionamiento si el jugador se desvía demasiado
-- [ ] Implementar guía visual en el suelo
-- [ ] Poblar la escena 620 con geometría básica de calles (ladrillardos grises va está bien)
+## Fase 1 - Vertical Slice 620 Sin Trafico
 
-### Mono B — HUD y Cronómetro
-- [ ] Crear `UIManager.cs` y estructura Canvas del HUD
-- [ ] Implementar velocímetro
-- [ ] Implementar cronómetro con tiempo transcurrido y referencia al objetivo de medalla activo
-- [ ] Implementar minimapa
-- [ ] Implementar cuenta regresiva de 3 segundos antes del inicio
-- [ ] Pantalla de resultados placeholder (tiempo final, medalla)
+Objetivo: tener un recorrido 620 completable de punta a punta con un colectivo controlable, cronometro y resultado.
 
-### Mono C — CameraController
-- [ ] Integrar Cinemachine 3.x en el proyecto
-- [ ] Configurar cámara de tercera persona siguiendo el colectivo
-- [ ] Configurar cámara de primera persona (interior del colectivo, detrás del volante)
-- [ ] Implementar `CameraController.cs`: toggle entre primera y tercera persona con blend suave (0.3s)
-- [ ] Ajustar FOV y distancias para que el colectivo se sienta grande y pesado
-- [ ] Probar las dos cámaras recorriendo el 620
+### Vehiculo base
 
----
+- [ ] Crear prefab `VEH_OH1618_Ugarte_Base.prefab`.
+- [ ] Agregar `Rigidbody` con masa aproximada de 14.000 kg.
+- [ ] Agregar `WheelCollider` para ruedas principales.
+- [ ] Ajustar centro de masa bajo.
+- [ ] Implementar `VehicleData.cs`.
+- [ ] Crear `VehicleData_OH1618_Ugarte.asset`.
+- [ ] Implementar `VehicleController.cs`: aceleracion, freno, direccion y freno de mano.
+- [ ] Agregar limite suave de velocidad maxima.
+- [ ] Agregar asistencia arcade basica contra vuelcos excesivos.
+- [ ] Probar en `PhysicsTest.unity`: recta, frenado, curva cerrada y rampa.
 
-## Meta 3 — Tráfico y Pasajeros
+### Recorrido 620
 
-> **Meta:** El 620 tiene tráfico vial y paradas con pasajeros funcionales.
+- [ ] Implementar `RouteData.cs`.
+- [ ] Implementar `RouteSceneBinder.cs`.
+- [ ] Implementar `RouteSystem.cs` con progreso por waypoints.
+- [ ] Crear `RouteData_620.asset`.
+- [ ] Crear geometria blockout del recorrido 620.
+- [ ] Colocar waypoints del 620.
+- [ ] Definir spawn inicial y meta.
+- [ ] Implementar limites de recorrido y reposicionamiento simple.
+- [ ] Agregar guia visual tenue en el suelo.
 
-### Mono A — TrafficSystem
-- [ ] Configurar NavMesh en la escena 620
-- [ ] Implementar `TrafficManager.cs` con pool fijo de vehículos NPC (máx 20-25 activos)
-- [ ] Implementar `TrafficSpawner.cs`: spawn/despawn en zonas fuera de la vista del jugador
-- [ ] Implementar `VehicleAI.cs`: seguir carril, frenar ante obstáculos, respetar semáforos básico
-- [ ] Crear 2-3 prefabs de autos NPC simples (blockout)
-- [ ] Agregar colectivos NPC del carril contrario (con evento de saludo disponible)
+### Camara y HUD minimo
 
-### Mono B — PassengerSystem
-- [ ] Implementar `PassengerManager.cs`: registra paradas, gestiona ocupación
-- [ ] Implementar `BusStop.cs`: trigger de zona, spawn de pasajeros sprite billboard
-- [ ] Lógica de subida de pasajeros: jugador frena en zona de parada → pasajeros suben
-- [ ] Lógica de bajada de pasajeros: parada destino → jugador debe frenar completamente
-- [ ] Implementar detección de pasajeros llamando desde lejos (gesto + ícono HUD)
-- [ ] Poblar el recorrido 620 con paradas y pasajeros configurados
+- [ ] Instalar/configurar Cinemachine 3.x si falta.
+- [ ] Crear camara tercera persona.
+- [ ] Crear camara primera persona.
+- [ ] Implementar `CameraController.cs` con cambio en `V`.
+- [ ] Crear HUD Canvas con velocimetro.
+- [ ] Crear cronometro.
+- [ ] Crear cuenta regresiva de 3 segundos.
+- [ ] Crear pantalla de resultados con tiempo final y medalla.
 
-### Mono C — HornController y LightsController
-- [ ] Implementar `HornController.cs`: bocina normal y bocina de aire con inputs separados
-- [ ] Implementar `LightsController.cs`: toggle luces delanteras
-- [ ] Agregar efectos de sonido placeholder para bocinas (pueden ser beeps temporales)
-- [ ] Implementar detección de colectivos NPC del carril contrario para el saludo
-- [ ] Implementar bus-spotters: spawn en puntos del recorrido, detección de reducción de velocidad
-- [ ] Conectar estos controladores al `GameEvents.cs` para que el ScoreSystem los escuche
+### Criterio de aceptacion
 
----
+- [ ] El jugador puede iniciar el 620 desde menu o escena de prueba.
+- [ ] La cuenta regresiva bloquea el movimiento hasta terminar.
+- [ ] El colectivo recorre el 620 de punta a punta.
+- [ ] El juego detecta llegada a meta.
+- [ ] La pantalla de resultados muestra tiempo final.
+- [ ] Primera y tercera persona funcionan durante el recorrido.
 
-## Meta 4 — Score y Repeticiones
+## Fase 2 - Loop Competitivo Basico
 
-> **Meta:** El juego puntúa, graba la repetición y guarda el progreso en disco.
+Objetivo: convertir la vertical slice en un loop rejugable con medallas, puntaje base, replay y guardado.
 
-### Mono A — ScoreSystem
-- [ ] Implementar `ScoreManager.cs`: puntaje base por tiempo restante * multiplicador por categoría
-- [ ] Implementar Puntos de Estilo: Atender al público, Saludar al compañero, Posar para las cámaras
-- [ ] Lógica de ventana de tiempo para el saludo (responder en N segundos)
-- [ ] Implementar combo de acciones de estilo con multiplicador acumulativo
-- [ ] Popup animado en HUD al ganar Style Points
-- [ ] Pantalla de resultados completa: tiempo, medalla, desglose de puntaje
+### Puntaje y medallas
 
-### Mono B — ReplaySystem
-- [ ] Implementar `ReplayManager.cs`: grabación de estado del vehículo a 20 fps durante el recorrido
-- [ ] Implementar `ReplayData` y `ReplayFrame` con serialización a JSON
-- [ ] Implementar reproducción de repetición: mover el colectivo según frames grabados
-- [ ] Crear escena `ReplayViewer.unity` con controles básicos (play, pausa, velocidad)
-- [ ] Implementar exportación del archivo `.replayjson` a carpeta del usuario
-- [ ] Implementar importación de un archivo de repetición externo para verlo
+- [ ] Implementar `ScoreManager.cs`.
+- [ ] Calcular medalla segun tiempos `Gold`, `Silver`, `Bronze`.
+- [ ] Calcular puntaje base por tiempo restante y categoria.
+- [ ] Mostrar desglose simple en resultados.
+- [ ] Registrar personal best por recorrido.
 
-### Mono C — SaveSystem
-- [ ] Implementar `SaveSystem.cs`: lectura y escritura de `progress.json` en `%AppData%/BondiSimulator/`
-- [ ] Implementar `PlayerProgress` y `RouteRecord` con serialización JSON
-- [ ] Implementar guardado manual desde el menú de pausa
-- [ ] Implementar autoguardado al completar un recorrido (si está activado en opciones)
-- [ ] Bloquear guardado durante un recorrido en curso
-- [ ] Implementar carga de progreso al iniciar el juego
+### Repeticiones
 
----
+- [ ] Implementar `ReplayData.cs` y `ReplayFrame.cs`.
+- [ ] Implementar grabacion de estado del vehiculo a 20 fps.
+- [ ] Guardar replay en `%AppData%/BondiSimulator/Replays/`.
+- [ ] Serializar replay como JSON versionado comprimido con GZip.
+- [ ] Implementar reproduccion local simple del ultimo replay.
+- [ ] Crear `ReplayViewer.unity` con controles basicos: play, pausa, velocidad.
 
-## Milestone 5 — Recorridos 622 y 378 + Los 3 Modelos
+### Guardado
 
-> **Meta:** Los 3 recorridos y los 3 colectivos están jugables.
+- [ ] Implementar `SaveSystem.cs`.
+- [ ] Implementar `PlayerProgress.cs` y `RouteRecord.cs`.
+- [ ] Guardar `progress.json` en `%AppData%/BondiSimulator/`.
+- [ ] Cargar progreso al iniciar.
+- [ ] Bloquear guardado durante `Racing`.
+- [ ] Agregar autoguardado al completar recorrido si la opcion esta activa.
 
-### Mono A — Recorrido 622 (Cristania → Laferrere)
-- [ ] Construir geometría de calles del 622 (angostas, giros 90°, tráfico denso)
-- [ ] Configurar waypoints y RouteData SO del 622
-- [ ] Poblar con paradas, pasajeros y tráfico ajustado a la densidad del recorrido
-- [ ] Crear y asignar prefab del modelo OF 1621 Bimet Corwin Corbus
-- [ ] Completar VehicleData SO del Corbus (alta maniobrabilidad, menor velocidad punta)
-- [ ] Testear que el recorrido 622 sea completable y que la dificultad se sienta distinta al 620
+### Criterio de aceptacion
 
-### Mono B — Recorrido 378 (Laferrere → Plaza KM30)
-- [ ] Construir geometría del 378: elevación, centro de transbordo Independencia, Ruta 3
-- [ ] Configurar waypoints y RouteData SO del 378
-- [ ] Poblar con paradas, pasajeros y tráfico
-- [ ] Crear y asignar prefab del modelo OH 1618 Ugarte Europeo (modelo estándar del 378)
-- [ ] Testear el recorrido completo con el modelo asignado
+- [ ] Completar el 620 guarda o actualiza el record local.
+- [ ] Se genera un replay reproducible.
+- [ ] Reiniciar el juego conserva progreso y records.
+- [ ] Fallar el tiempo objetivo permite terminar, registra personal best y no desbloquea contenido.
 
-### Mono C — Modelo OH 1621 Nuovobus Cittá + selección de vehículos
-- [ ] Crear prefab del modelo OH 1621 Nuovobus Cittá con materiales y colores del 96
-- [ ] Completar VehicleData SO del Cittá (alta aceleración y velocidad, menor maniobra)
-- [ ] Implementar variantes visuales (versión especial de baja probabilidad) para los 3 modelos
-- [ ] Implementar pantalla de selección de modelo en el menú (con stats visibles)
-- [ ] Implementar lógica de modelo especial: probabilidad baja al seleccionar, sin ventaja de stats
-- [ ] Conectar selección de modelo al spawn del prefab correcto en cada escena
+## Fase 3 - Estilo, Pasajeros Y Trafico Minimo En 620
 
----
+Objetivo: validar las mecanicas diferenciales del concepto sin expandir todavia a mas recorridos.
 
-## Meta 6 — Audio, UI Final y Polish
+### Bocinas, luces y acciones
 
-> **Meta:** MVP presentable: menús terminados, audio completo, build de PC estable.
+- [ ] Implementar `HornController.cs` con bocina normal.
+- [ ] Implementar bocina de aire con input separado.
+- [ ] Implementar `LightsController.cs`.
+- [ ] Agregar SFX placeholder para bocinas.
+- [ ] Emitir eventos de bocina y luces hacia `GameEvents`.
 
-### Mono A — AudioManager y Soundtrack
-- [ ] Implementar `AudioManager.cs` con AudioMixer (grupos: Music, SFX_Vehicle, SFX_Environment, UI)
-- [ ] Integrar 2 tracks de música: uno para menús, uno para gameplay
-- [ ] Implementar efectos de sonido del motor (loop con pitch variable según velocidad)
-- [ ] Implementar SFX de bocinas, frenos, ruedas en curva
-- [ ] Implementar SFX de ambiente urbano (tráfico lejano, ciudad)
-- [ ] Agregar SFX de UI (navegación de menús, selección, resultados)
+### Pasajeros y paradas
 
-### Mono B — Menú Principal y Flujo Completo
-- [ ] Construir menú principal completo: selección de empresa → línea → recorrido → modelo
-- [ ] Implementar mapa del recorrido en la pantalla de previa (imagen o render simple)
-- [ ] Mostrar distancia, categoría (Sprint/Short/etc.) y los 3 tiempos objetivo
-- [ ] Implementar pantalla de opciones: volumen, resolución, autoguardado on/off
-- [ ] Implementar pantalla de pausa con opciones de guardar, reiniciar y salir
-- [ ] Conectar el flujo completo de UI con el FSM del GameManager
+- [ ] Implementar `BusStop.cs`.
+- [ ] Implementar `PassengerManager.cs`.
+- [ ] Crear pasajeros placeholder como billboards o modelos simples.
+- [ ] Detectar frenado correcto en parada.
+- [ ] Otorgar puntos por atender publico.
+- [ ] Mostrar indicador HUD de pasajeros esperando.
+- [ ] Poblar el 620 con paradas minimas.
 
-### Mono C — Build, QA y README técnico
-- [ ] Testear los 3 recorridos completos de punta a punta
-- [ ] Configurar Player Settings para build PC (Windows 64-bit, ícono, nombre del juego)
-- [ ] Aplicar compresión de texturas (DXT5/BC7) y compresión de audio (Vorbis)
-- [ ] Configurar LOD Groups en los 3 modelos de colectivos y en elementos del entorno
-- [ ] Habilitar Occlusion Culling en las 3 escenas de recorrido
-- [ ] Generar build final y documentar bugs conocidos en un archivo `KNOWN_ISSUES.md` o con git issues
+### Trafico y oportunidades de estilo
 
----
+- [ ] Configurar NavMesh/AI Navigation en la escena 620.
+- [ ] Implementar `TrafficManager.cs` con pool limitado.
+- [ ] Implementar `TrafficSpawner.cs` fuera de vista.
+- [ ] Implementar `VehicleAI.cs` simple: seguir carril y frenar ante obstaculos.
+- [ ] Crear 2 prefabs blockout de autos NPC.
+- [ ] Crear colectivo NPC de carril contrario.
+- [ ] Implementar saludo de companero con ventana de respuesta.
+- [ ] Implementar bus-spotter placeholder.
+- [ ] Otorgar puntos por posar para camaras.
 
-## Backlog (post-MVP)
+### Criterio de aceptacion
 
-Estas tareas no son necesarias para el MVP pero están documentadas para no perderlas.
+- [ ] El 620 puede jugarse con trafico sin bloquearse constantemente.
+- [ ] El jugador puede ganar puntos por las tres acciones de estilo MVP.
+- [ ] Los puntos de estilo aparecen en HUD y resultados.
+- [ ] Pasajeros y trafico no son obligatorios para ganar, solo afectan puntaje.
 
-- [ ] Sistema de desbloqueo de recorridos en árbol
-- [ ] Más recorridos y modelos de colectivos
-- [ ] Integración de FMOD para audio más avanzado
-- [ ] Leaderboards locales por recorrido
-- [ ] Sistema de compartir repeticiones via servidor o plataforma
-- [ ] Soporte para gamepad/joystick
-- [ ] Recorridos por secciones modulares para agilizar la producción de contenido nuevo
-- [ ] Semáforos con lógica real y penalización de puntos de estilo
+## Fase 4 - Demo MVP Con 3 Recorridos Y 3 Modelos
 
----
+Objetivo: ampliar el contenido manteniendo el loop ya probado.
 
-_Última actualización: 5-4 - Santy: CREO EL ARCHIVO 
+### Recorrido 622
+
+- [ ] Crear `Route_622_Cristania_Laferrere.unity`.
+- [ ] Crear blockout de calles angostas y giros de 90 grados.
+- [ ] Crear `RouteData_622.asset`.
+- [ ] Configurar waypoints, spawn, meta y limites.
+- [ ] Poblar paradas y pasajeros.
+- [ ] Ajustar trafico denso.
+- [ ] Testear que sea completable y se sienta distinto al 620.
+
+### Recorrido 378
+
+- [ ] Crear `Route_378_Laferrere_KM30.unity`.
+- [ ] Crear blockout con elevacion, Independencia y conexion Ruta 3.
+- [ ] Crear `RouteData_378.asset`.
+- [ ] Configurar waypoints, spawn, meta y limites.
+- [ ] Poblar paradas y pasajeros.
+- [ ] Ajustar trafico y ritmo del recorrido.
+- [ ] Testear que sea completable y se sienta distinto al 620 y 622.
+
+### Modelos de colectivo
+
+- [ ] Crear prefab OH 1618 Ugarte Europeo para 620/378.
+- [ ] Crear prefab OH 1621 Nuovobus Citta para 96/variante de velocidad.
+- [ ] Crear prefab OF 1621 Bimet Corwin Corbus para 622.
+- [ ] Crear `VehicleData` para cada modelo.
+- [ ] Ajustar diferencias: base equilibrado, Citta rapido, Corbus maniobrable.
+- [ ] Implementar variantes visuales especiales de baja probabilidad sin ventaja de stats.
+
+### Seleccion y menu
+
+- [ ] Crear flujo de menu: empresa -> linea -> recorrido -> modelo.
+- [ ] Crear pantalla de previa con mapa simple del recorrido.
+- [ ] Mostrar distancia, categoria y tiempos objetivo.
+- [ ] Mostrar stats del modelo elegido.
+- [ ] Spawnear el prefab correcto segun seleccion.
+
+### Criterio de aceptacion
+
+- [ ] Los tres recorridos son completables.
+- [ ] Los tres modelos se pueden seleccionar.
+- [ ] Cada modelo se siente distinto sin romper el balance.
+- [ ] El menu permite iniciar cualquier recorrido disponible.
+
+## Fase 5 - Audio, Polish Y Build
+
+Objetivo: cerrar una demo presentable para PC.
+
+### Audio
+
+- [ ] Implementar `AudioManager.cs`.
+- [ ] Crear `AudioMixer.mixer` con grupos `Music`, `SFX_Vehicle`, `SFX_Environment`, `UI`.
+- [ ] Integrar musica de menu.
+- [ ] Integrar musica de gameplay.
+- [ ] Implementar loop de motor con pitch segun velocidad.
+- [ ] Agregar SFX de freno, rueda, bocina, aire y UI.
+- [ ] Agregar ambiente urbano basico.
+
+### UI final
+
+- [ ] Crear pantalla de opciones: volumen, resolucion, autoguardado.
+- [ ] Crear pantalla de pausa: continuar, reiniciar, guardar si permitido, salir.
+- [ ] Mejorar resultados: tiempo, medalla, puntaje base, estilo, total.
+- [ ] Agregar feedback visual consistente para puntos de estilo.
+- [ ] Revisar legibilidad del HUD en 1080p.
+
+### QA y build
+
+- [ ] Configurar Player Settings: nombre, icono, Windows x64.
+- [ ] Revisar escenas en Build Settings.
+- [ ] Configurar compresion de texturas y audio.
+- [ ] Agregar LODs basicos a vehiculos y entorno relevante.
+- [ ] Habilitar Occlusion Culling donde aporte.
+- [ ] Testear los tres recorridos completos.
+- [ ] Crear `KNOWN_ISSUES.md`.
+- [ ] Generar build final de demo.
+
+### Criterio de aceptacion
+
+- [ ] La build corre en Windows x64.
+- [ ] Los tres recorridos se pueden completar en build.
+- [ ] No hay errores criticos de consola durante una carrera normal.
+- [ ] Existe lista de bugs conocidos antes de compartir la demo.
+
+## Backlog Post-MVP
+
+- [ ] Arbol completo de desbloqueos por punto B y ramales conectados.
+- [ ] Mas recorridos y empresas.
+- [ ] Mas modelos de colectivos.
+- [ ] Recorridos construidos por secciones modulares.
+- [ ] Leaderboards locales.
+- [ ] Compartir repeticiones desde servidor o plataforma.
+- [ ] Soporte formal de gamepad/volante.
+- [ ] FMOD para audio avanzado.
+- [ ] Semaforos con logica real.
+- [ ] Penalizaciones opcionales para modos mas simulador.

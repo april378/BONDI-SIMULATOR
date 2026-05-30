@@ -6,7 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/_Project/Scenes/MainMenu.unity
+    guid: 8590b08ecc1e4aa7aa6d7acb79a85dd4
+  - enabled: 1
+    path: Assets/_Project/Scenes/Route_620_SanJusto_CarlosCasares.unity
+    guid: 46519a17eb444fb7af8a23fe68c74ca6
+  - enabled: 1
+    path: Assets/_Project/Scenes/PhysicsTest.unity
+    guid: 7c8a6d56990443d589d960ce6dd22645
   m_configObjects:
-    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: c9baf10c8a2f4334ead53ed880ea3f43, type: 3}
