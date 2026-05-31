@@ -24,15 +24,49 @@ namespace BondiSimulator.Core
         private InputAction changeCameraAction;
         private InputAction pauseAction;
 
+        /// <summary>
+        /// Raised when the normal horn input is pressed.
+        /// </summary>
         public event Action HornPressed;
+
+        /// <summary>
+        /// Raised when the air horn input is pressed.
+        /// </summary>
         public event Action AirHornPressed;
+
+        /// <summary>
+        /// Raised when the lights input is pressed.
+        /// </summary>
         public event Action LightsPressed;
+
+        /// <summary>
+        /// Raised when the camera toggle input is pressed.
+        /// </summary>
         public event Action ChangeCameraPressed;
+
+        /// <summary>
+        /// Raised when the pause input is pressed.
+        /// </summary>
         public event Action PausePressed;
 
+        /// <summary>
+        /// Current steering axis, where negative steers left and positive steers right.
+        /// </summary>
         public float Steering { get; private set; }
+
+        /// <summary>
+        /// Current acceleration axis.
+        /// </summary>
         public float Acceleration { get; private set; }
+
+        /// <summary>
+        /// Current brake axis.
+        /// </summary>
         public float Brake { get; private set; }
+
+        /// <summary>
+        /// True while the handbrake button is held.
+        /// </summary>
         public bool HandbrakeHeld { get; private set; }
 
         private void Awake()

@@ -27,18 +27,18 @@ Objetivo: ordenar el proyecto Unity y dejar una base consistente para construir 
 
 ### Arquitectura minima
 
-- [ ] Crear `GameManager.cs` con estados `MainMenu`, `Countdown`, `Racing`, `Results`.
-- [ ] Crear `GameEvents.cs` para eventos globales de gameplay.
-- [ ] Crear `PlayerInputReader.cs` como capa de lectura del Input System.
-- [ ] Crear `ServiceLocator.cs` solo para servicios globales inevitables.
-- [ ] Documentar en comentarios XML las clases publicas principales.
+- [x] Crear `GameManager.cs` con estados `MainMenu`, `Countdown`, `Racing`, `Results`.
+- [x] Crear `GameEvents.cs` para eventos globales de gameplay.
+- [x] Crear `PlayerInputReader.cs` como capa de lectura del Input System.
+- [x] Crear `ServiceLocator.cs` solo para servicios globales inevitables.
+- [x] Documentar en comentarios XML las clases publicas principales.
 
 ### Criterio de aceptacion
 
-- [ ] El proyecto abre en Unity sin errores criticos.
-- [ ] Las escenas base existen y cargan.
-- [ ] Los inputs PC minimos estan definidos sin conflictos.
-- [ ] `GameManager` puede cambiar de `MainMenu` a `Countdown`, `Racing` y `Results`.
+- [x] El proyecto abre en Unity sin errores criticos.
+- [x] Las escenas base existen y cargan.
+- [x] Los inputs PC minimos estan definidos sin conflictos.
+- [x] `GameManager` puede cambiar de `MainMenu` a `Countdown`, `Racing` y `Results`.
 
 ## Fase 1 - Vertical Slice 620 Sin Trafico
 

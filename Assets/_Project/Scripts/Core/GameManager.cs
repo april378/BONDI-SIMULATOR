@@ -16,8 +16,19 @@ namespace BondiSimulator.Core
         private Coroutine countdownRoutine;
         private float raceStartTime;
 
+        /// <summary>
+        /// Current state of the global game flow.
+        /// </summary>
         public GameState CurrentState { get; private set; }
+
+        /// <summary>
+        /// Last completed race time in seconds, or zero before any race has ended.
+        /// </summary>
         public float LastRaceTimeSeconds { get; private set; }
+
+        /// <summary>
+        /// True while gameplay systems should run race logic.
+        /// </summary>
         public bool IsRacing => CurrentState == GameState.Racing;
 
         private void Awake()
@@ -36,11 +47,17 @@ namespace BondiSimulator.Core
             ServiceLocator.Unregister(this);
         }
 
+        /// <summary>
+        /// Returns the flow to the menu state.
+        /// </summary>
         public void ReturnToMainMenu()
         {
             SetState(GameState.MainMenu);
         }
 
+        /// <summary>
+        /// Starts the countdown and automatically enters racing when it finishes.
+        /// </summary>
         public void BeginCountdown()
         {
             if (countdownRoutine != null)
@@ -52,6 +69,9 @@ namespace BondiSimulator.Core
             countdownRoutine = StartCoroutine(RunCountdown());
         }
 
+        /// <summary>
+        /// Enters racing immediately and resets race timing.
+        /// </summary>
         public void StartRace()
         {
             raceStartTime = Time.time;
@@ -60,6 +80,9 @@ namespace BondiSimulator.Core
             GameEvents.RaiseRaceStarted();
         }
 
+        /// <summary>
+        /// Completes the active race and records elapsed time from the race start.
+        /// </summary>
         public void CompleteRace()
         {
             if (CurrentState != GameState.Racing)
@@ -72,6 +95,9 @@ namespace BondiSimulator.Core
             GameEvents.RaiseRaceFinished(LastRaceTimeSeconds);
         }
 
+        /// <summary>
+        /// Shows results for a known elapsed time, useful for tests or replay-driven flows.
+        /// </summary>
         public void ShowResults(float elapsedSeconds)
         {
             LastRaceTimeSeconds = Mathf.Max(0f, elapsedSeconds);
