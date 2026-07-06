@@ -16,7 +16,7 @@ namespace BondiSimulator.Vehicle
 
         private void Awake()
         {
-            BuildSurface("Large_Test_Ground", new Vector3(0f, -0.05f, 90f), new Vector3(140f, 0.1f, 220f), Vector3.zero);
+            BuildSurface("Large_Test_Ground", new Vector3(0f, -0.05f, 260f), new Vector3(520f, 0.1f, 920f), Vector3.zero);
             BuildSurface("Long_Braking_Strip", new Vector3(0f, 0.01f, 70f), new Vector3(12f, 0.05f, 150f), Vector3.zero);
             BuildSurface("Wide_Turn_Area", new Vector3(42f, 0.02f, 130f), new Vector3(58f, 0.05f, 58f), Vector3.zero);
             BuildSurface("Ramp_Test", new Vector3(-34f, 0.55f, 148f), new Vector3(9f, 0.25f, 20f), new Vector3(-10f, 0f, 0f));
