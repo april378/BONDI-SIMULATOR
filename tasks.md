@@ -46,16 +46,16 @@ Objetivo: tener un recorrido 620 completable de punta a punta con un colectivo c
 
 ### Vehiculo base
 
-- [ ] Crear prefab `VEH_OH1618_Ugarte_Base.prefab`.
-- [ ] Agregar `Rigidbody` con masa aproximada de 14.000 kg.
-- [ ] Agregar `WheelCollider` para ruedas principales.
-- [ ] Ajustar centro de masa bajo.
-- [ ] Implementar `VehicleData.cs`.
-- [ ] Crear `VehicleData_OH1618_Ugarte.asset`.
-- [ ] Implementar `VehicleController.cs`: aceleracion, freno, direccion y freno de mano.
-- [ ] Agregar limite suave de velocidad maxima.
-- [ ] Agregar asistencia arcade basica contra vuelcos excesivos.
-- [ ] Probar en `PhysicsTest.unity`: recta, frenado, curva cerrada y rampa.
+- [x] Crear prefab `VEH_OH1618_Ugarte_Base.prefab`.
+- [x] Agregar `Rigidbody` con masa aproximada de 14.000 kg.
+- [x] Agregar `WheelCollider` para ruedas principales.
+- [x] Ajustar centro de masa bajo.
+- [x] Implementar `VehicleData.cs`.
+- [x] Crear `VehicleData_OH1618_Ugarte.asset`.
+- [x] Implementar `VehicleController.cs`: aceleracion, freno, direccion y freno de mano.
+- [x] Agregar limite suave de velocidad maxima.
+- [x] Agregar asistencia arcade basica contra vuelcos excesivos.
+- [x] Probar en `PhysicsTest.unity`: recta, frenado, curva cerrada y rampa.
 
 ### Recorrido 620
 
