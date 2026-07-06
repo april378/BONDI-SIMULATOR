@@ -71,14 +71,14 @@ Objetivo: tener un recorrido 620 completable de punta a punta con un colectivo c
 
 ### Camara y HUD minimo
 
-- [ ] Instalar/configurar Cinemachine 3.x si falta.
-- [ ] Crear camara tercera persona.
-- [ ] Crear camara primera persona.
-- [ ] Implementar `CameraController.cs` con cambio en `V`.
-- [ ] Crear HUD Canvas con velocimetro.
-- [ ] Crear cronometro.
-- [ ] Crear cuenta regresiva de 3 segundos.
-- [ ] Crear pantalla de resultados con tiempo final y medalla.
+- [x] Instalar/configurar Cinemachine 3.x si falta.
+- [x] Crear camara tercera persona.
+- [x] Crear camara primera persona.
+- [x] Implementar `CameraController.cs` con cambio en `V`.
+- [x] Crear HUD Canvas con velocimetro.
+- [x] Crear cronometro.
+- [x] Crear cuenta regresiva de 3 segundos.
+- [x] Crear pantalla de resultados con tiempo final y medalla.
 
 ### Criterio de aceptacion
 

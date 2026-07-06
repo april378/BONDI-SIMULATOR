@@ -1,4 +1,7 @@
+using BondiSimulator.Cameras;
 using BondiSimulator.Core;
+using BondiSimulator.UI;
+using BondiSimulator.Vehicle;
 using UnityEngine;
 
 namespace BondiSimulator.Route
@@ -37,6 +40,7 @@ namespace BondiSimulator.Route
 
             SpawnPlayer();
             routeSystem.Initialize(routeData, playerInstance != null ? playerInstance.transform : null);
+            BindRuntimeConsumers();
         }
 
         private void Start()
@@ -62,6 +66,32 @@ namespace BondiSimulator.Route
 
             playerInstance = Instantiate(playerVehiclePrefab, routeData.SpawnPosition, routeData.SpawnRotation);
             playerInstance.name = "PlayerVehicle";
+        }
+
+        private void BindRuntimeConsumers()
+        {
+            if (playerInstance == null)
+            {
+                return;
+            }
+
+            CameraController cameraController = FindFirstObjectByType<CameraController>();
+            if (cameraController != null)
+            {
+                cameraController.SetTarget(playerInstance.transform);
+            }
+
+            VehicleController vehicle = playerInstance.GetComponent<VehicleController>();
+            if (vehicle == null)
+            {
+                vehicle = playerInstance.GetComponentInChildren<VehicleController>();
+            }
+
+            RaceHudController hudController = FindFirstObjectByType<RaceHudController>();
+            if (hudController != null)
+            {
+                hudController.SetVehicle(vehicle);
+            }
         }
 
         private void BuildBlockoutGeometry()
