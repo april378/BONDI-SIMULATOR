@@ -59,15 +59,15 @@ Objetivo: tener un recorrido 620 completable de punta a punta con un colectivo c
 
 ### Recorrido 620
 
-- [ ] Implementar `RouteData.cs`.
-- [ ] Implementar `RouteSceneBinder.cs`.
-- [ ] Implementar `RouteSystem.cs` con progreso por waypoints.
-- [ ] Crear `RouteData_620.asset`.
-- [ ] Crear geometria blockout del recorrido 620.
-- [ ] Colocar waypoints del 620.
-- [ ] Definir spawn inicial y meta.
-- [ ] Implementar limites de recorrido y reposicionamiento simple.
-- [ ] Agregar guia visual tenue en el suelo.
+- [x] Implementar `RouteData.cs`.
+- [x] Implementar `RouteSceneBinder.cs`.
+- [x] Implementar `RouteSystem.cs` con progreso por waypoints.
+- [x] Crear `RouteData_620.asset`.
+- [x] Crear geometria blockout del recorrido 620.
+- [x] Colocar waypoints del 620.
+- [x] Definir spawn inicial y meta.
+- [x] Implementar limites de recorrido y reposicionamiento simple.
+- [x] Agregar guia visual tenue en el suelo.
 
 ### Camara y HUD minimo
 
