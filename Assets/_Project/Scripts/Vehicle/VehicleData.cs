@@ -18,6 +18,9 @@ namespace BondiSimulator.Vehicle
         [Header("Powertrain")]
         [SerializeField, Min(1f)] private float maxSpeedKph = 78f;
         [SerializeField, Min(0f)] private float motorTorque = 5200f;
+        [SerializeField, Min(0f)] private float reverseTorque = 2600f;
+        [SerializeField, Min(1f)] private float maxReverseSpeedKph = 16f;
+        [SerializeField, Min(0f)] private float reverseEngageSpeedKph = 1.5f;
         [SerializeField, Min(0f)] private float brakeTorque = 14500f;
         [SerializeField, Min(0f)] private float handbrakeTorque = 22000f;
 
@@ -44,6 +47,9 @@ namespace BondiSimulator.Vehicle
         public Vector3 CenterOfMass => centerOfMass;
         public float MaxSpeedKph => maxSpeedKph;
         public float MotorTorque => motorTorque;
+        public float ReverseTorque => reverseTorque;
+        public float MaxReverseSpeedKph => maxReverseSpeedKph;
+        public float ReverseEngageSpeedKph => reverseEngageSpeedKph;
         public float BrakeTorque => brakeTorque;
         public float HandbrakeTorque => handbrakeTorque;
         public float MaxSteerAngle => maxSteerAngle;

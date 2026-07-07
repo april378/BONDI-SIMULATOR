@@ -81,6 +81,9 @@ MonoBehaviour:
   frontRightVisual: {fileID: 250001}
   rearLeftVisual: {fileID: 260001}
   rearRightVisual: {fileID: 270001}
+  createRuntimeWheelVisuals: 1
+  runtimeWheelWidth: 0.32
+  runtimeWheelColor: {r: 0.02, g: 0.02, b: 0.02, a: 1}
   alignToGroundOnStart: 1
   groundProbeHeight: 5
   groundProbeDistance: 25

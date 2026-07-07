@@ -17,6 +17,9 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: -0.85, z: 0.15}
   maxSpeedKph: 78
   motorTorque: 5200
+  reverseTorque: 2600
+  maxReverseSpeedKph: 16
+  reverseEngageSpeedKph: 1.5
   brakeTorque: 14500
   handbrakeTorque: 22000
   maxSteerAngle: 32

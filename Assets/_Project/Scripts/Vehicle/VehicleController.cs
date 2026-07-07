@@ -25,6 +25,9 @@ namespace BondiSimulator.Vehicle
         [SerializeField] private Transform frontRightVisual;
         [SerializeField] private Transform rearLeftVisual;
         [SerializeField] private Transform rearRightVisual;
+        [SerializeField] private bool createRuntimeWheelVisuals = true;
+        [SerializeField, Min(0.05f)] private float runtimeWheelWidth = 0.32f;
+        [SerializeField] private Color runtimeWheelColor = new(0.02f, 0.02f, 0.02f, 1f);
 
         [Header("Grounding")]
         [SerializeField] private bool alignToGroundOnStart = true;
@@ -35,6 +38,7 @@ namespace BondiSimulator.Vehicle
         private Rigidbody busRigidbody;
         private PlayerInputReader inputReader;
         private GameManager gameManager;
+        private Material runtimeWheelMaterial;
 
         public float CurrentSpeedKph => busRigidbody != null ? busRigidbody.linearVelocity.magnitude * 3.6f : 0f;
         public float NormalizedSpeed => vehicleData != null && vehicleData.MaxSpeedKph > 0f
@@ -47,6 +51,7 @@ namespace BondiSimulator.Vehicle
             ServiceLocator.TryGet(out inputReader);
             ServiceLocator.TryGet(out gameManager);
             ApplyVehicleData();
+            EnsureRuntimeWheelVisuals();
         }
 
         private void Start()
@@ -226,9 +231,40 @@ namespace BondiSimulator.Vehicle
 
         private void ApplyDrive(float acceleration, float brake, bool handbrake)
         {
-            float speedLimitFactor = Mathf.Clamp01(1f - Mathf.InverseLerp(vehicleData.MaxSpeedKph * 0.92f, vehicleData.MaxSpeedKph, CurrentSpeedKph));
-            float motorTorque = acceleration * vehicleData.MotorTorque * speedLimitFactor;
-            float brakeTorque = brake * vehicleData.BrakeTorque;
+            float signedSpeedKph = Vector3.Dot(busRigidbody.linearVelocity, transform.forward) * 3.6f;
+            float forwardLimitFactor = Mathf.Clamp01(1f - Mathf.InverseLerp(vehicleData.MaxSpeedKph * 0.92f, vehicleData.MaxSpeedKph, Mathf.Max(0f, signedSpeedKph)));
+            float reverseLimitFactor = Mathf.Clamp01(1f - Mathf.InverseLerp(vehicleData.MaxReverseSpeedKph * 0.85f, vehicleData.MaxReverseSpeedKph, Mathf.Max(0f, -signedSpeedKph)));
+
+            bool movingForward = signedSpeedKph > vehicleData.ReverseEngageSpeedKph;
+            bool movingBackward = signedSpeedKph < -vehicleData.ReverseEngageSpeedKph;
+
+            float motorTorque = 0f;
+            float brakeTorque = 0f;
+
+            if (acceleration > 0f)
+            {
+                if (movingBackward)
+                {
+                    brakeTorque = acceleration * vehicleData.BrakeTorque;
+                }
+                else
+                {
+                    motorTorque = acceleration * vehicleData.MotorTorque * forwardLimitFactor;
+                }
+            }
+
+            if (brake > 0f)
+            {
+                if (movingForward)
+                {
+                    brakeTorque = Mathf.Max(brakeTorque, brake * vehicleData.BrakeTorque);
+                }
+                else
+                {
+                    motorTorque = -brake * vehicleData.ReverseTorque * reverseLimitFactor;
+                }
+            }
+
             float handbrakeTorque = handbrake ? vehicleData.HandbrakeTorque : 0f;
 
             if (rearLeftWheel != null)
@@ -252,6 +288,72 @@ namespace BondiSimulator.Vehicle
             {
                 frontRightWheel.brakeTorque = brakeTorque;
             }
+        }
+
+        private void EnsureRuntimeWheelVisuals()
+        {
+            if (!createRuntimeWheelVisuals || vehicleData == null)
+            {
+                return;
+            }
+
+            runtimeWheelMaterial = CreateRuntimeWheelMaterial();
+            frontLeftVisual = CreateRuntimeWheelVisual("RuntimeWheel_FrontLeft", frontLeftWheel);
+            frontRightVisual = CreateRuntimeWheelVisual("RuntimeWheel_FrontRight", frontRightWheel);
+            rearLeftVisual = CreateRuntimeWheelVisual("RuntimeWheel_RearLeft", rearLeftWheel);
+            rearRightVisual = CreateRuntimeWheelVisual("RuntimeWheel_RearRight", rearRightWheel);
+        }
+
+        private Transform CreateRuntimeWheelVisual(string objectName, WheelCollider sourceWheel)
+        {
+            if (sourceWheel == null)
+            {
+                return null;
+            }
+
+            GameObject pivot = new(objectName);
+            pivot.transform.SetParent(transform, false);
+
+            GameObject cylinder = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            cylinder.name = "WheelMesh";
+            cylinder.transform.SetParent(pivot.transform, false);
+            cylinder.transform.localRotation = Quaternion.Euler(0f, 0f, 90f);
+            cylinder.transform.localScale = new Vector3(vehicleData.WheelRadius * 2f, runtimeWheelWidth * 0.5f, vehicleData.WheelRadius * 2f);
+
+            Collider wheelCollider = cylinder.GetComponent<Collider>();
+            if (wheelCollider != null)
+            {
+                Destroy(wheelCollider);
+            }
+
+            Renderer renderer = cylinder.GetComponent<Renderer>();
+            if (renderer != null && runtimeWheelMaterial != null)
+            {
+                renderer.sharedMaterial = runtimeWheelMaterial;
+            }
+
+            sourceWheel.GetWorldPose(out Vector3 position, out Quaternion rotation);
+            pivot.transform.SetPositionAndRotation(position, rotation);
+            return pivot.transform;
+        }
+
+        private Material CreateRuntimeWheelMaterial()
+        {
+            Shader shader = Shader.Find("Universal Render Pipeline/Lit");
+            if (shader == null)
+            {
+                shader = Shader.Find("Standard");
+            }
+
+            if (shader == null)
+            {
+                return null;
+            }
+
+            return new Material(shader)
+            {
+                color = runtimeWheelColor
+            };
         }
 
         private void ApplyAntiRoll(WheelCollider leftWheel, WheelCollider rightWheel)
