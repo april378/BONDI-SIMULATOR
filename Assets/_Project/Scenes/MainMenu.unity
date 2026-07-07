@@ -114,6 +114,7 @@ GameObject:
   m_Component:
   - component: {fileID: 100001}
   - component: {fileID: 100002}
+  - component: {fileID: 100003}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -139,6 +140,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialState: 0
   countdownSeconds: 3
+--- !u!114 &100003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_Script: {fileID: 11500000, guid: 7e9c54f5b8f6479e95d8d75f1bce4c0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  routeSceneName: Route_620_SanJusto_CarlosCasares
+  menuFont: {fileID: 0}
 --- !u!1 &200000
 GameObject:
   m_ObjectHideFlags: 0
