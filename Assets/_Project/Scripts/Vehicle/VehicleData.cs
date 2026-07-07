@@ -27,7 +27,11 @@ namespace BondiSimulator.Vehicle
 
         [Header("Wheels")]
         [SerializeField, Min(0.05f)] private float wheelRadius = 0.48f;
-        [SerializeField, Min(0.01f)] private float suspensionDistance = 0.35f;
+        [SerializeField, Min(0.01f)] private float suspensionDistance = 0.55f;
+        [SerializeField, Min(1f)] private float suspensionSpring = 420000f;
+        [SerializeField, Min(0f)] private float suspensionDamper = 52000f;
+        [SerializeField, Range(0f, 1f)] private float suspensionTargetPosition = 0.55f;
+        [SerializeField, Min(1f)] private float wheelMass = 120f;
 
         [Header("Arcade Assistance")]
         [SerializeField, Min(0f)] private float antiRollForce = 85000f;
@@ -46,6 +50,10 @@ namespace BondiSimulator.Vehicle
         public float HighSpeedSteerFactor => highSpeedSteerFactor;
         public float WheelRadius => wheelRadius;
         public float SuspensionDistance => suspensionDistance;
+        public float SuspensionSpring => suspensionSpring;
+        public float SuspensionDamper => suspensionDamper;
+        public float SuspensionTargetPosition => suspensionTargetPosition;
+        public float WheelMass => wheelMass;
         public float AntiRollForce => antiRollForce;
         public float Downforce => downforce;
         public float RolloverAssistStartAngle => rolloverAssistStartAngle;

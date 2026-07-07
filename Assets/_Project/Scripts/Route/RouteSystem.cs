@@ -9,6 +9,8 @@ namespace BondiSimulator.Route
     [DisallowMultipleComponent]
     public sealed class RouteSystem : MonoBehaviour
     {
+        private const float ResetForwardOffset = 8f;
+
         [SerializeField] private RouteData routeData;
         [SerializeField] private Transform player;
 
@@ -122,7 +124,11 @@ namespace BondiSimulator.Route
                 ? Quaternion.LookRotation(direction.normalized, Vector3.up)
                 : routeData.SpawnRotation;
 
-            player.SetPositionAndRotation(safePosition + Vector3.up * 1.2f, rotation);
+            Vector3 resetPosition = direction.sqrMagnitude > 0.01f
+                ? safePosition + direction.normalized * Mathf.Min(ResetForwardOffset, direction.magnitude * 0.5f)
+                : safePosition;
+
+            player.SetPositionAndRotation(resetPosition, rotation);
 
             if (playerRigidbody == null)
             {

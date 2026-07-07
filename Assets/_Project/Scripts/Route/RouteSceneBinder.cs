@@ -13,6 +13,8 @@ namespace BondiSimulator.Route
     [RequireComponent(typeof(RouteSystem))]
     public sealed class RouteSceneBinder : MonoBehaviour
     {
+        private const float RoadEndPadding = 8f;
+
         [SerializeField] private RouteData routeData;
         [SerializeField] private GameObject playerVehiclePrefab;
         [SerializeField] private bool buildBlockoutGeometry = true;
@@ -108,7 +110,7 @@ namespace BondiSimulator.Route
             {
                 Vector3 from = routeData.GetWaypoint(i);
                 Vector3 to = routeData.GetWaypoint(i + 1);
-                BuildSegment($"Road_{i:00}_{i + 1:00}", from, to, routeData.RoadWidth, 0.12f, -0.06f, roadMaterial, true);
+                BuildSegment($"Road_{i:00}_{i + 1:00}", from, to, routeData.RoadWidth, 0.8f, -0.4f, roadMaterial, true, RoadEndPadding);
                 BuildSegment($"Guide_{i:00}_{i + 1:00}", from, to, routeData.GuideWidth, 0.04f, 0.03f, guideMaterial, false);
             }
 
@@ -135,7 +137,7 @@ namespace BondiSimulator.Route
             }
         }
 
-        private void BuildSegment(string objectName, Vector3 from, Vector3 to, float width, float height, float yOffset, Material material, bool colliderEnabled)
+        private void BuildSegment(string objectName, Vector3 from, Vector3 to, float width, float height, float yOffset, Material material, bool colliderEnabled, float endPadding = 0f)
         {
             Vector3 delta = to - from;
             delta.y = 0f;
@@ -149,7 +151,7 @@ namespace BondiSimulator.Route
             segment.name = objectName;
             segment.transform.SetParent(generatedRoot, false);
             segment.transform.SetPositionAndRotation((from + to) * 0.5f + Vector3.up * yOffset, Quaternion.LookRotation(delta.normalized, Vector3.up));
-            segment.transform.localScale = new Vector3(width, height, delta.magnitude);
+            segment.transform.localScale = new Vector3(width, height, delta.magnitude + endPadding * 2f);
             segment.GetComponent<Renderer>().sharedMaterial = material;
             segment.GetComponent<Collider>().enabled = colliderEnabled;
         }

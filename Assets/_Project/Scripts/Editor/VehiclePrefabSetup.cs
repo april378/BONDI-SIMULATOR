@@ -40,7 +40,9 @@ namespace BondiSimulator.EditorTools
 
                 GameObject visual = (GameObject)PrefabUtility.InstantiatePrefab(modelAsset, visualRoot);
                 visual.name = "Bus_Quaternius_PublicTransport";
-                FitVisualToBusBounds(visual.transform, new Vector3(2.55f, 2.9f, 10.2f));
+                visual.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+                visual.transform.localScale = Vector3.one;
+                FitVisualToBusBounds(visualRoot, new Vector3(2.55f, 2.9f, 10.2f));
 
                 PrefabUtility.SaveAsPrefabAsset(prefabRoot, VehiclePrefabPath);
             }

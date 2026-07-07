@@ -22,7 +22,11 @@ MonoBehaviour:
   maxSteerAngle: 32
   highSpeedSteerFactor: 0.38
   wheelRadius: 0.48
-  suspensionDistance: 0.35
+  suspensionDistance: 0.55
+  suspensionSpring: 420000
+  suspensionDamper: 52000
+  suspensionTargetPosition: 0.55
+  wheelMass: 120
   antiRollForce: 85000
   downforce: 45
   rolloverAssistStartAngle: 10

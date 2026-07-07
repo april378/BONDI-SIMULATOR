@@ -26,6 +26,12 @@ namespace BondiSimulator.Vehicle
         [SerializeField] private Transform rearLeftVisual;
         [SerializeField] private Transform rearRightVisual;
 
+        [Header("Grounding")]
+        [SerializeField] private bool alignToGroundOnStart = true;
+        [SerializeField, Min(0f)] private float groundProbeHeight = 5f;
+        [SerializeField, Min(0.1f)] private float groundProbeDistance = 25f;
+        [SerializeField, Min(0f)] private float rootGroundClearance = 0.02f;
+
         private Rigidbody busRigidbody;
         private PlayerInputReader inputReader;
         private GameManager gameManager;
@@ -41,6 +47,14 @@ namespace BondiSimulator.Vehicle
             ServiceLocator.TryGet(out inputReader);
             ServiceLocator.TryGet(out gameManager);
             ApplyVehicleData();
+        }
+
+        private void Start()
+        {
+            if (alignToGroundOnStart)
+            {
+                AlignRootToGround();
+            }
         }
 
         private void FixedUpdate()
@@ -87,6 +101,10 @@ namespace BondiSimulator.Vehicle
 
             busRigidbody.mass = vehicleData.MassKg;
             busRigidbody.centerOfMass = vehicleData.CenterOfMass;
+            busRigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+            busRigidbody.interpolation = RigidbodyInterpolation.Interpolate;
+            busRigidbody.solverIterations = 12;
+            busRigidbody.solverVelocityIterations = 6;
 
             ConfigureWheel(frontLeftWheel);
             ConfigureWheel(frontRightWheel);
@@ -103,6 +121,54 @@ namespace BondiSimulator.Vehicle
 
             wheel.radius = vehicleData.WheelRadius;
             wheel.suspensionDistance = vehicleData.SuspensionDistance;
+            wheel.mass = vehicleData.WheelMass;
+            wheel.suspensionSpring = new JointSpring
+            {
+                spring = vehicleData.SuspensionSpring,
+                damper = vehicleData.SuspensionDamper,
+                targetPosition = vehicleData.SuspensionTargetPosition
+            };
+            wheel.ConfigureVehicleSubsteps(5f, 12, 15);
+        }
+
+        private void AlignRootToGround()
+        {
+            if (busRigidbody == null || !TryFindGroundBelow(out RaycastHit hit))
+            {
+                return;
+            }
+
+            Vector3 position = busRigidbody.position;
+            position.y = hit.point.y + rootGroundClearance;
+            busRigidbody.position = position;
+            transform.position = position;
+            busRigidbody.linearVelocity = Vector3.zero;
+            busRigidbody.angularVelocity = Vector3.zero;
+            Physics.SyncTransforms();
+        }
+
+        private bool TryFindGroundBelow(out RaycastHit groundHit)
+        {
+            Vector3 origin = transform.position + Vector3.up * groundProbeHeight;
+            RaycastHit[] hits = Physics.RaycastAll(
+                origin,
+                Vector3.down,
+                groundProbeHeight + groundProbeDistance,
+                Physics.DefaultRaycastLayers,
+                QueryTriggerInteraction.Ignore);
+
+            System.Array.Sort(hits, static (a, b) => a.distance.CompareTo(b.distance));
+            foreach (RaycastHit hit in hits)
+            {
+                if (hit.collider != null && !hit.collider.transform.IsChildOf(transform))
+                {
+                    groundHit = hit;
+                    return true;
+                }
+            }
+
+            groundHit = default;
+            return false;
         }
 
         private void ReadInput(out float steering, out float acceleration, out float brake, out bool handbrake)
