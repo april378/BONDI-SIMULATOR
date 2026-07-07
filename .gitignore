@@ -111,3 +111,7 @@ Desktop.ini
 # Local save data (no subir progreso local)
 /BondiSimulator_SaveData/
 *.replayjson
+
+# Unity recovery scenes generated after editor restarts
+/[Aa]ssets/_Recovery/
+/[Aa]ssets/_Recovery.meta
