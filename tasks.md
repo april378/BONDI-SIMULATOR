@@ -82,12 +82,12 @@ Objetivo: tener un recorrido 620 completable de punta a punta con un colectivo c
 
 ### Criterio de aceptacion
 
-- [ ] El jugador puede iniciar el 620 desde menu o escena de prueba.
-- [ ] La cuenta regresiva bloquea el movimiento hasta terminar.
-- [ ] El colectivo recorre el 620 de punta a punta.
-- [ ] El juego detecta llegada a meta.
-- [ ] La pantalla de resultados muestra tiempo final.
-- [ ] Primera y tercera persona funcionan durante el recorrido.
+- [x] El jugador puede iniciar el 620 desde menu o escena de prueba.
+- [x] La cuenta regresiva bloquea el movimiento hasta terminar.
+- [x] El colectivo recorre el 620 de punta a punta.
+- [x] El juego detecta llegada a meta.
+- [x] La pantalla de resultados muestra tiempo final.
+- [x] Primera y tercera persona funcionan durante el recorrido.
 
 ## Fase 2 - Loop Competitivo Basico
 
