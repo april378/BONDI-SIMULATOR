@@ -46,48 +46,48 @@ Objetivo: tener un recorrido 620 completable de punta a punta con un colectivo c
 
 ### Vehiculo base
 
-- [ ] Crear prefab `VEH_OH1618_Ugarte_Base.prefab`.
-- [ ] Agregar `Rigidbody` con masa aproximada de 14.000 kg.
-- [ ] Agregar `WheelCollider` para ruedas principales.
-- [ ] Ajustar centro de masa bajo.
-- [ ] Implementar `VehicleData.cs`.
-- [ ] Crear `VehicleData_OH1618_Ugarte.asset`.
-- [ ] Implementar `VehicleController.cs`: aceleracion, freno, direccion y freno de mano.
-- [ ] Agregar limite suave de velocidad maxima.
-- [ ] Agregar asistencia arcade basica contra vuelcos excesivos.
-- [ ] Probar en `PhysicsTest.unity`: recta, frenado, curva cerrada y rampa.
+- [x] Crear prefab `VEH_OH1618_Ugarte_Base.prefab`.
+- [x] Agregar `Rigidbody` con masa aproximada de 14.000 kg.
+- [x] Agregar `WheelCollider` para ruedas principales.
+- [x] Ajustar centro de masa bajo.
+- [x] Implementar `VehicleData.cs`.
+- [x] Crear `VehicleData_OH1618_Ugarte.asset`.
+- [x] Implementar `VehicleController.cs`: aceleracion, freno, direccion y freno de mano.
+- [x] Agregar limite suave de velocidad maxima.
+- [x] Agregar asistencia arcade basica contra vuelcos excesivos.
+- [x] Probar en `PhysicsTest.unity`: recta, frenado, curva cerrada y rampa.
 
 ### Recorrido 620
 
-- [ ] Implementar `RouteData.cs`.
-- [ ] Implementar `RouteSceneBinder.cs`.
-- [ ] Implementar `RouteSystem.cs` con progreso por waypoints.
-- [ ] Crear `RouteData_620.asset`.
-- [ ] Crear geometria blockout del recorrido 620.
-- [ ] Colocar waypoints del 620.
-- [ ] Definir spawn inicial y meta.
-- [ ] Implementar limites de recorrido y reposicionamiento simple.
-- [ ] Agregar guia visual tenue en el suelo.
+- [x] Implementar `RouteData.cs`.
+- [x] Implementar `RouteSceneBinder.cs`.
+- [x] Implementar `RouteSystem.cs` con progreso por waypoints.
+- [x] Crear `RouteData_620.asset`.
+- [x] Crear geometria blockout del recorrido 620.
+- [x] Colocar waypoints del 620.
+- [x] Definir spawn inicial y meta.
+- [x] Implementar limites de recorrido y reposicionamiento simple.
+- [x] Agregar guia visual tenue en el suelo.
 
 ### Camara y HUD minimo
 
-- [ ] Instalar/configurar Cinemachine 3.x si falta.
-- [ ] Crear camara tercera persona.
-- [ ] Crear camara primera persona.
-- [ ] Implementar `CameraController.cs` con cambio en `V`.
-- [ ] Crear HUD Canvas con velocimetro.
-- [ ] Crear cronometro.
-- [ ] Crear cuenta regresiva de 3 segundos.
-- [ ] Crear pantalla de resultados con tiempo final y medalla.
+- [x] Instalar/configurar Cinemachine 3.x si falta.
+- [x] Crear camara tercera persona.
+- [x] Crear camara primera persona.
+- [x] Implementar `CameraController.cs` con cambio en `V`.
+- [x] Crear HUD Canvas con velocimetro.
+- [x] Crear cronometro.
+- [x] Crear cuenta regresiva de 3 segundos.
+- [x] Crear pantalla de resultados con tiempo final y medalla.
 
 ### Criterio de aceptacion
 
-- [ ] El jugador puede iniciar el 620 desde menu o escena de prueba.
-- [ ] La cuenta regresiva bloquea el movimiento hasta terminar.
-- [ ] El colectivo recorre el 620 de punta a punta.
-- [ ] El juego detecta llegada a meta.
-- [ ] La pantalla de resultados muestra tiempo final.
-- [ ] Primera y tercera persona funcionan durante el recorrido.
+- [x] El jugador puede iniciar el 620 desde menu o escena de prueba.
+- [x] La cuenta regresiva bloquea el movimiento hasta terminar.
+- [x] El colectivo recorre el 620 de punta a punta.
+- [x] El juego detecta llegada a meta.
+- [x] La pantalla de resultados muestra tiempo final.
+- [x] Primera y tercera persona funcionan durante el recorrido.
 
 ## Fase 2 - Loop Competitivo Basico
 

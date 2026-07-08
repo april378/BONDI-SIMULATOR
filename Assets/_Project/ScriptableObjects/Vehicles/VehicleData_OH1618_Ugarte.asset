@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d07f4de6efc158b5303da3d4eaa09ef, type: 3}
+  m_Name: VehicleData_OH1618_Ugarte
+  m_EditorClassIdentifier:
+  displayName: OH 1618 Ugarte Base
+  massKg: 14000
+  centerOfMass: {x: 0, y: -0.85, z: 0.15}
+  maxSpeedKph: 78
+  motorTorque: 5200
+  reverseTorque: 2600
+  maxReverseSpeedKph: 16
+  reverseEngageSpeedKph: 1.5
+  brakeTorque: 14500
+  handbrakeTorque: 22000
+  maxSteerAngle: 32
+  highSpeedSteerFactor: 0.38
+  wheelRadius: 0.48
+  suspensionDistance: 0.55
+  suspensionSpring: 420000
+  suspensionDamper: 52000
+  suspensionTargetPosition: 0.55
+  wheelMass: 120
+  antiRollForce: 85000
+  downforce: 45
+  rolloverAssistStartAngle: 10
+  rolloverAssistStrength: 12
