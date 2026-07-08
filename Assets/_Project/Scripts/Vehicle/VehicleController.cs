@@ -32,11 +32,9 @@ namespace BondiSimulator.Vehicle
         [Header("Visual Model Fit")]
         [SerializeField] private Transform visualModelRoot;
         [SerializeField] private bool fitVisualModelToVehicleBounds = true;
-        [SerializeField] private Vector3 fittedVisualLocalPosition = new(0f, 2.15f, 4.54f);
+        [SerializeField] private Vector3 fittedVisualLocalPosition = new(0f, 2.15f, -4.54f);
         [SerializeField] private Vector3 fittedVisualLocalEulerAngles = new(0f, 90f, 0f);
         [SerializeField] private Vector3 fittedVisualLocalScale = new(2.57f, 1.81f, 1.43f);
-        [SerializeField] private bool alignVisualModelToWheelColliders = true;
-        [SerializeField] private Vector3 visualModelAlignmentOffset = new(0f, 0f, -0.75f);
         [SerializeField] private bool hideEmbeddedWheelRenderers = true;
 
         [Header("Grounding")]
@@ -321,11 +319,6 @@ namespace BondiSimulator.Vehicle
                 visualModelRoot.localScale = fittedVisualLocalScale;
             }
 
-            if (alignVisualModelToWheelColliders)
-            {
-                AlignVisualModelToWheelColliders();
-            }
-
             if (hideEmbeddedWheelRenderers)
             {
                 HideEmbeddedWheelRenderers();
@@ -343,66 +336,6 @@ namespace BondiSimulator.Vehicle
             }
 
             return null;
-        }
-
-        private void AlignVisualModelToWheelColliders()
-        {
-            if (!TryGetVisualWheelCenter("Front", out Vector3 visualFrontCenter)
-                || !TryGetVisualWheelCenter("Back", out Vector3 visualRearCenter)
-                || !TryGetWheelColliderAxleCenter(frontLeftWheel, frontRightWheel, out Vector3 colliderFrontCenter)
-                || !TryGetWheelColliderAxleCenter(rearLeftWheel, rearRightWheel, out Vector3 colliderRearCenter))
-            {
-                visualModelRoot.localPosition += visualModelAlignmentOffset;
-                return;
-            }
-
-            Vector3 visualAxleMidpoint = (visualFrontCenter + visualRearCenter) * 0.5f;
-            Vector3 colliderAxleMidpoint = (colliderFrontCenter + colliderRearCenter) * 0.5f;
-            Vector3 correction = colliderAxleMidpoint - visualAxleMidpoint + visualModelAlignmentOffset;
-            correction.y = visualModelAlignmentOffset.y;
-            visualModelRoot.localPosition += correction;
-        }
-
-        private bool TryGetVisualWheelCenter(string marker, out Vector3 center)
-        {
-            Renderer[] renderers = visualModelRoot.GetComponentsInChildren<Renderer>(true);
-            Bounds bounds = default;
-            bool hasBounds = false;
-
-            foreach (Renderer renderer in renderers)
-            {
-                if (renderer == null
-                    || !renderer.name.Contains("Wheel", System.StringComparison.OrdinalIgnoreCase)
-                    || !renderer.name.Contains(marker, System.StringComparison.OrdinalIgnoreCase))
-                {
-                    continue;
-                }
-
-                if (!hasBounds)
-                {
-                    bounds = renderer.bounds;
-                    hasBounds = true;
-                }
-                else
-                {
-                    bounds.Encapsulate(renderer.bounds);
-                }
-            }
-
-            center = hasBounds ? transform.InverseTransformPoint(bounds.center) : default;
-            return hasBounds;
-        }
-
-        private bool TryGetWheelColliderAxleCenter(WheelCollider leftWheel, WheelCollider rightWheel, out Vector3 center)
-        {
-            if (leftWheel == null || rightWheel == null)
-            {
-                center = default;
-                return false;
-            }
-
-            center = (leftWheel.transform.localPosition + rightWheel.transform.localPosition) * 0.5f;
-            return true;
         }
 
         private void HideEmbeddedWheelRenderers()
